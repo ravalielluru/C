@@ -27,8 +27,8 @@ then
     echo "Inout parameters must be integer argument"
 fi
 
-#scmd='siege  -g http://localhost:8080'
-scmd='siege  -g http://www.facebook.com'
+scmd='siege  -g http://localhost:8080'
+
 
 		resptime="$(${scmd} 2>&1 | grep 'response_time' | awk '{print $3}' )"
 
