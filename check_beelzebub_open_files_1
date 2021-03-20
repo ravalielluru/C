@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+while getopts 'w:c:' OPT; do
+	case $OPT in
+	w) warn=$OPTARG ;;
+	c) crit=$OPTARG ;;
+  *) echo "Unknown option"
+	exit 0;; 
+	esac
+done
+
+#Assigning default critical threshold value
+if [ -z $warn ]; then
+	warn=10
+fi
+
+# Assigning default critical threshold value
+if [ -z $crit ]; then
+	crit=20
+fi
+
+re='^[0-9]+$'
+if ! [[ $warn =~ $re ]];
+then
+echo "Warning threshold passed must be integer"
+fi
+
+if ! [[ $crit =~ $re ]];
+then
+echo "Critical threshold passed must be integer"
+fi
+
+regexpattern="'*.yaml'$'"
+
+fileCount=$(lsof | grep beelzebub | egrep ${regexpattern} | uniq -c | wc -l)
+if [[ -n "${fileCount}" ]]; then
+	if [[ "$fileCount" -lt "$warn" ]]; then
+		echo "Transaction file count $fileCount"
+	elif [[ "${fileCount}" -ge "${warn}" ]] && [[ "${fileCount}" -le "${crit}" ]]; then
+		echo "Warning : Transaction file count is $filecount which is greater than $warn"
+	elif [[ "${fileCount}" -ge "${crit}" ]]; then
+		echo "Critical : Transaction file count is $filecount which is greater than $crit"
+	fi	
+elif [[ -z "${fileCount}" ]]; then
+	echo "No Transaction file count data"
+fi
+
