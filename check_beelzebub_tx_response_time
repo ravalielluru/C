@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+#Assigning default critical threshold value
+# warning threshold
+warn=2
+# critical threshold
+crit=5
+# timeframe in sec
+t_p=5
+
+# siege location
+siege="/usr/bin/siege"
+
+options=':w:c:t:'
+
+while getopts $options opt; do
+  case $opt in
+    	w) warn=${OPTARG} ;;
+	 		c) crit=${OPTARG} ;;
+			t) t_p=${OPTARG} ;;
+			*) echo "Unknown option: -$OPTARG" ;;
+  esac
+done
+
+if ! [[ $warn =~ ^-?[0-9]+$ ]] || ! [[ $crit =~ ^-?[0-9]+$ ]] || ! [[ $t_p =~ ^-?[0-9]+$ ]];
+then
+    echo "Inout parameters must be integer argument"
+fi
+
+scmd='siege  -g http://localhost:8080'
+
+
+		resptime="$(${scmd} 2>&1 | grep 'Response time' | awk '{print $2}' | sed 's/.$//' )"
+
+	  if expr $resptime '<=' $warn 1>/dev/null; then
+			echo "Response Time ${resptime}"
+		elif expr $resptime '>=' "$warn"  &&  $resptime '<' "$crit"  1>/dev/null; then
+			echo "WARNING : Response Time $resptime is greater than threshold value $warn sec"
+		elif expr $resptime '>=' $crit  1>/dev/null; then
+			echo "CRITICAL : Response Time $resptime is greater than thresold value $crit sec"
+		fi
+#	}
+
