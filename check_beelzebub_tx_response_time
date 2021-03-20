@@ -30,7 +30,7 @@ fi
 scmd='siege  -g http://localhost:8080'
 
 
-		resptime="$(${scmd} 2>&1 | grep 'Response time' | awk '{print $3}' | sed 's/.$//' )"
+		resptime="$(${scmd} 2>&1 | grep 'Response time' | awk '{print $3}')"
 
 	  if expr $resptime '<=' $warn 1>/dev/null; then
 			echo "Response Time ${resptime}"
