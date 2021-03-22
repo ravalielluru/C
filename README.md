@@ -15,20 +15,24 @@ Siege
 
 **2.	Instructions for compiling and running your checks**
 
-This program accepts --warning and --critical thresholds for the number of open transaction files.
+**a)** This program accepts --warning and --critical thresholds for the number of open transaction files.
  Cd ../check_beelzebub --warning 10 --critical 20
  Example: ./check_beelzebub_open_files_1 -w 10 -c 20
  
- OUTPUT: Transaction file count 0
+ **OUTPUT**: Transaction file count 0
  
  
  7ffe8c31a000-7ffe8c31c000 r-xp 00000000 00:00 0                          [vdso]
 ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
 Response Time 0.01
 
+
+**
+b) ** This program accept --warning and --critical threshold arguments for the average response time in seconds, and a --time-period argument that specifies the time window to analyze in seconds.
+
 ./check_beelzebub_tx_response_time -w 5 -c 10 -t 5
 
-Output: ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+**Output**: ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
 CRITICAL : Response Time time is greater than thresold value 10 sec
 
 
