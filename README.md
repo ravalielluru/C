@@ -7,7 +7,13 @@ Vagrent installtion
 Virtual box 
 Install and run beelzebub + unicorn
 Setup Nagios
-3.	Instructions for compiling and running your checks
+
+
+2.	Instructions for compiling and running your checks
+
+This program accepts --warning and --critical thresholds for the number of open transaction files.
+ Cd ../_files --warning 10 --critical 20
+
 4.	Any assumptions you made
 5.	Why you picked the programming language you used
 Recommendations
