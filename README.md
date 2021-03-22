@@ -27,8 +27,7 @@ ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsysca
 Response Time 0.01
 
 
-**
-b) ** This program accept --warning and --critical threshold arguments for the average response time in seconds, and a --time-period argument that specifies the time window to analyze in seconds.
+b) This program accept --warning and --critical threshold arguments for the average response time in seconds, and a --time-period argument that specifies the time window to analyze in seconds.
 
 ./check_beelzebub_tx_response_time -w 5 -c 10 -t 5
 
